@@ -11,5 +11,10 @@ _[Course website]_
 WIP
 
 
+## Assignments
+
+ * Problem Set #1 ([link][ps1])
+
 
 [Course website]: https://lums658.github.io/amath583s19/
+[ps1]: assignments/ps1

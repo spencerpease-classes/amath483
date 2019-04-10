@@ -1,0 +1,28 @@
+1. What is the host name of the computer as reported by your linux environment? 
+   (You will need to find the right Linux command to execute for this. I 
+   suggest searching the web.)
+
+   "wraith-gen2" (found through the command `hostname`).
+
+2. How would you specify the name of an output file when you use the compiler if
+   you wanted the executable to have a name other than `a.out`?
+
+   Use the `-o` flag to specify an output name. For example:
+   `$ c++ hello.cpp -o hello.out`
+
+3. What happens if you type `$ a.out` instead of `$ ./a.out` to run your 
+   program? What is the difference (operationally) between the two statements?
+
+   Typing `$ a.out` produces the error "zsh: command not found: a.out". the
+   difference is that just running `$ a.out` makes the shell think that `a.out`
+   is an executable that exists in the $PATH. Prefixing `a.out` with `./` tells 
+   the shell to instead locate the executable in the current directory.
+
+4. What does clang print when you run `$ c++ --version`?
+
+   ```
+   clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)
+   Target: x86_64-pc-linux-gnu
+   Thread model: posix
+   InstalledDir: /usr/bin
+   ```
