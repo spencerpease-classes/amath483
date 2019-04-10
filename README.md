@@ -1,4 +1,4 @@
-# INFO 474
+# AMATH 483
 
 > High-Performance Scientific Computing  
 > Spring quarter, 2019  
