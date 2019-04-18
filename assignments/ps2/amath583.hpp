@@ -13,7 +13,7 @@
 
 #include "Vector.hpp"
 
-void   zeroize(/* WRITE ME */);
+void   zeroize(Vector& x);
 double one_norm(const Vector& x);
 double two_norm(const Vector& x);
 double inf_norm(const Vector& x);

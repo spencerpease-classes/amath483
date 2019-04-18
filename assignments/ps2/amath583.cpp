@@ -13,8 +13,13 @@
 #include <cmath>
 
 
-void zeroize(/* WRITE ME */) {
-  /* WRITE ME */
+void zeroize(Vector& x) {
+
+  for (size_t i = 0; i < x.num_rows(); ++i) {
+    x(i) = 0.0;
+  }
+
+  return;
 }
 
 double one_norm(const Vector& x) {
@@ -37,4 +42,4 @@ double inf_norm(const Vector& x) {
   return result;
 }
 
-// AMATH 583 students will need to add dot() 
+// AMATH 583 students will need to add dot()
