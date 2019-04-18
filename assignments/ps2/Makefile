@@ -22,7 +22,7 @@ all		: julia.exe test_norms.exe test_zeroize.exe test_dot.exe \
 		  assert0.exe assert1.exe assert2.exe assert3.exe
 
 julia.exe 	: julia.o amath583.o
-		  $(CXX) $(CXXFLAGS) julia.o -o julia.exe
+		  $(CXX) $(CXXFLAGS) -lpthread julia.o -o julia.exe
 
 julia.o 	: julia.cpp amath583.hpp Vector.hpp
 	   	  $(CXX) $(CXXFLAGS) -c julia.cpp -o julia.o
