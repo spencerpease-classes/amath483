@@ -22,9 +22,20 @@ std::complex<double> xy_to_complex(int x, int y) {
   return std::complex<double>((x - scale) / ((double)scale), (y - scale) / ((double)scale));
 }
 
-std::complex<double> f(std::complex<double> x) { return /* WRITE ME (not zero) */ 0.0; }
+std::complex<double> f(std::complex<double> x) {
 
-std::complex<double> fp(std::complex<double> x) { return /* WRITE ME (not one) */ 1.0; }
+  std::complex<double> y = 1.0;
+  std::complex<double> result = std::pow(x, 3) - y;
+
+  return result;
+  }
+
+std::complex<double> fp(std::complex<double> x) {
+
+  std::complex<double> result = 3.0 * std::pow(x, 2);
+
+  return  result;
+  }
 
 int newt(std::complex<double> x0) {
   for (int i = 0; i < 256; ++i) {
@@ -54,7 +65,7 @@ int main() {
       std::complex<double> x   = xy_to_complex(i, j);     // convert screen coord to complex number
       unsigned char        pix = (unsigned char)newt(x);  // get number of iterations
       julia(i, j, 0, 0)        = 13 * pix;  // red
-      julia(i, j, 0, 1)        = 17 * pix;  // green 
+      julia(i, j, 0, 1)        = 17 * pix;  // green
       julia(i, j, 0, 2)        = 21 * pix;  // blue
     }
   }
