@@ -31,8 +31,15 @@ double one_norm(const Vector& x) {
 }
 
 double two_norm(const Vector& x) {
+
   double result = 0.0;
-  /* WRITE ME */
+
+  for(size_t i = 0; i < x.num_rows(); ++i) {
+    result += std::pow(x(i), 2);
+  }
+
+  result = std::sqrt(result);
+
   return result;
 }
 
