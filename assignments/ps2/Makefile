@@ -58,7 +58,7 @@ assert2.exe	: assert2.cpp
 		  $(CXX) $(CXXFLAGS) assert2.cpp -o assert2.exe
 
 assert3.exe	: assert3.cpp
-		  $(CXX) $(CXXFLAGS) assert3.cpp -o assert3.exe
+		  $(CXX) $(CXXFLAGS) -DNDEBUG assert3.cpp -o assert3.exe
 
 clean		:
 		  /bin/rm -f julia.o amath583.o julia.exe *~ julia.bmp \
