@@ -45,7 +45,11 @@ double two_norm(const Vector& x) {
 
 double inf_norm(const Vector& x) {
   double result = 0.0;
-  /* WRITE ME */
+
+  for(size_t i = 0; i < x.num_rows(); ++i) {
+    result = std::max(result, std::abs(x(i)));
+  }
+
   return result;
 }
 
