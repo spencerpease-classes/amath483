@@ -15,6 +15,7 @@ WIP
 
  * Problem Set #1 ([link][ps1])
  * Problem Set #2 ([link][ps2])
+ * Problem Set #3 ([link][ps3])
 
 
 [Course website]: https://lums658.github.io/amath583s19/
