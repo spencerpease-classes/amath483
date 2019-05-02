@@ -94,8 +94,8 @@ double inf_norm(const Matrix& A);
 double Frobenius_norm(const Matrix& A) {
   double result = 0.0;
 
-  for(size_t i = 0; i < A.num_rows; ++i) {
-    for(size_t j = 0; j < A.num_cols; ++j) {
+  for(size_t i = 0; i < A.num_rows(); ++i) {
+    for(size_t j = 0; j < A.num_cols(); ++j) {
       result += std::pow(std::abs(A(i, j)), 2);
     }
   }
@@ -123,8 +123,8 @@ Matrix operator-(const Matrix& D, const Matrix& E) {
 
   Matrix F(D.num_rows(), D.num_cols());
 
-  for(size_t i = 0; i < F.num_rows; ++i) {
-    for(size_t j = 0; j < F.num_cols; ++j) {
+  for(size_t i = 0; i < F.num_rows(); ++i) {
+    for(size_t j = 0; j < F.num_cols(); ++j) {
       F(i, j) = D(i, j) + E(i, j);
     }
   }
