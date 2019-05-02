@@ -16,7 +16,7 @@
 
 int main() {
   Timer t;
-  
+
   std::cout << "N\ttrips\ttotal\tavg" << std::endl;
   for (size_t size = 16; size <= 128; size *= 2) {
     size_t trips = 1024 * 1024 * 1024 / (size * size * size);
@@ -35,5 +35,3 @@ int main() {
 
   return 0;
 }
-
-

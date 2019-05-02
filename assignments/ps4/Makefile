@@ -14,15 +14,15 @@ CXX             := c++
 # OPTS            := -g -O0
 
 # Maximum optimization effort: -O3 -march=native -DNDEBUG
-OPTS            := -O3 -march=native
+OPTS            := -O3 -march=native -DNDEBUG
 LANG            := -std=c++11
 PICKY           := -Wall
 DEFS		:= -D__USE_CIMG
-INCLUDES	:= -I../include 
+INCLUDES	:= -I../include
 LIBS		:= -lpython2.7
 
 XINCLUDES	:= -I/opt/X11/include -I/usr/include/python2.7
-XLIBS		:= -L/opt/X11/lib -lX11  
+XLIBS		:= -L/opt/X11/lib -lX11
 VPATH		= ../src:../test
 
 INCLUDES	+= $(XINCLUDES)
@@ -34,7 +34,7 @@ ifeq ($(OS),Linux)
 endif
 
 
-CXXFLAGS	+= $(DEFS) $(OPTS) $(LANG) $(PICKY) $(INCLUDES) 
+CXXFLAGS	+= $(DEFS) $(OPTS) $(LANG) $(PICKY) $(INCLUDES)
 
 
 TARGETS		:= overhead.exe ordering.exe test_order.exe row_vs_col.exe vov.exe matvec.exe
@@ -72,7 +72,7 @@ optreport	:
 clean		:
 		  /bin/rm -f $(TARGETS) $(OBJECTS) $(PCHS) Matrix.s a.out *~ Makefile.bak
 
-depend		: 
+depend		:
 	@ $(CXX) -MM $(LANG) $(INCLUDES) $(SOURCES) $(TESTS) > makedep
 	@ echo '/^# DO NOT DELETE THIS LINE/+2,$$d' >eddep
 	@ echo '$$r makedep' >>eddep
@@ -89,9 +89,9 @@ depend		:
 # DO NOT DELETE THIS LINE -- make depend uses it
 # DEPENDENCIES MUST END AT END OF FILE
 overhead.o: overhead.cpp Timer.hpp Matrix.hpp amath583.hpp Vector.hpp
-ordering.o: ordering.cpp Matrix.hpp Timer.hpp amath583.hpp Vector.hpp 
+ordering.o: ordering.cpp Matrix.hpp Timer.hpp amath583.hpp Vector.hpp
 test_order.o: test_order.cpp catch.hpp Matrix.hpp amath583.hpp Vector.hpp
-row_vs_col.o: row_vs_col.cpp RowMatrix.hpp ColMatrix.hpp Timer.hpp amath583_rvc.hpp matplotlibcpp.h 
+row_vs_col.o: row_vs_col.cpp RowMatrix.hpp ColMatrix.hpp Timer.hpp amath583_rvc.hpp matplotlibcpp.h
 vov.o: vov.cpp VoVMatrix.hpp Matrix.hpp amath583.hpp amath583_vov.hpp matplotlibcpp.h
 matvec.o: matvec.cpp Vector.hpp Matrix.hpp amath583.hpp matplotlibcpp.h
 # DEPENDENCIES MUST END AT END OF FILE

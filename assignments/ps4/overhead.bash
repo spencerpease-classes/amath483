@@ -16,11 +16,9 @@ echo "================================================================"
 echo "With O3 optimization"
 echo ""
 make clean > /dev/null 2>&1
-make overhead.exe OPTS="-O3" > /dev/null 2>&1
+make overhead.exe OPTS="-O3 -DNDEBUG" > /dev/null 2>&1
 ./overhead.exe
 echo "================================================================"
 echo ""
 echo ""
 echo ""
-
-
