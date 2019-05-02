@@ -125,7 +125,7 @@ Matrix operator-(const Matrix& D, const Matrix& E) {
 
   for(size_t i = 0; i < F.num_rows(); ++i) {
     for(size_t j = 0; j < F.num_cols(); ++j) {
-      F(i, j) = D(i, j) + E(i, j);
+      F(i, j) = D(i, j) - E(i, j);
     }
   }
 
