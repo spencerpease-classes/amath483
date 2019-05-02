@@ -112,8 +112,18 @@ Matrix operator+(const Matrix& A, const Matrix& B) {
 
 
 Matrix operator-(const Matrix& D, const Matrix& E) {
-  /* WRITE ME */
-  return Matrix(0, 0); // FIX ME;
+
+  assert((D.num_rows() == E.num_rows()) && (D.num_cols() == E.num_cols()));
+
+  Matrix F(D.num_rows(), D.num_cols());
+
+  for(size_t i = 0; i < F.num_rows; ++i) {
+    for(size_t j = 0; j < F.num_cols; ++j) {
+      F(i, j) = D(i, j) + E(i, j);
+    }
+  }
+
+  return F;
 }
 
 Matrix& operator*=(double alpha, const Matrix& x);
