@@ -12,6 +12,7 @@
 #define AMATH_583_GREENBELT_MATRIX_HPP
 
 #include <vector>
+#include <cassert>
 
 class Matrix {
 public:

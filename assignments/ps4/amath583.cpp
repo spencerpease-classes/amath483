@@ -14,6 +14,7 @@
 #include <cassert>
 #include <random>
 #include <cmath>
+#include <functional>
 
 
 // ----------------------------------------------------------------
@@ -31,7 +32,7 @@ void   randomize(Vector& x) {
   std::default_random_engine generator;
   std::uniform_real_distribution<double> distribution(-1.0, 1.0);
   static auto dice = std::bind(distribution, generator);
-  
+
   for (size_t i = 0; i < x.num_rows(); ++i) {
       x(i) = dice();
   }
@@ -77,7 +78,7 @@ void   randomize(Matrix& A) {
   std::default_random_engine generator;
   std::uniform_real_distribution<double> distribution(-1.0, 1.0);
   static auto dice = std::bind(distribution, generator);
-  
+
   for (size_t i = 0; i < A.num_rows(); ++i) {
     for (size_t j = 0; j < A.num_cols(); ++j) {
       A(i, j) = dice();
@@ -177,5 +178,3 @@ void   matmat(const Matrix& A, const Matrix& B, Matrix& C) {
 
 
 /* Definition of matmat_jki goes here */
-
-
