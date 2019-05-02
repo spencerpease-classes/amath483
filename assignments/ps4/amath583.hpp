@@ -70,6 +70,8 @@ void   matvec(const Matrix& A, const Vector& x, Vector& y);
 // ----------------------------------------------------------------
 Matrix operator*(const Matrix& A, const Matrix& B);
 void   matmat(const Matrix& A, const Matrix& B, Matrix& C);
+void   matmat_ikj(const Matrix& A, const Matrix& B, Matrix& C);
+void   matmat_jki(const Matrix& A, const Matrix& B, Matrix& C);
 /* Declaration of matmat_ikj goes here */
 /* Declaration of matmat_jki goes here */
 

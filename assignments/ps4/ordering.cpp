@@ -76,6 +76,7 @@ int main(int argc, char* argv[]) {
     t.start();
     for (size_t trip = 0; trip <= trips; ++trip) {
       /* call ikj here */
+      matmat_ikj(A, B, C);
     }
     t.stop();
     double f = (2.0 * size * size * size) / 1.E9;
@@ -103,6 +104,7 @@ int main(int argc, char* argv[]) {
     t.start();
     for (size_t trip = 0; trip <= trips; ++trip) {
       /* call jki here */
+      matmat_jki(A, B, C);
     }
     t.stop();
     double f = (2.0 * size * size * size) / 1.E9;
@@ -127,5 +129,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
-

@@ -191,6 +191,24 @@ void   matmat(const Matrix& A, const Matrix& B, Matrix& C) {
 
 
 /* Definition of matmat_ikj goes here */
+void   matmat_ikj(const Matrix& A, const Matrix& B, Matrix& C) {
+  for(size_t i = 0; i < C.num_rows(); i++) {
+    for(size_t k = 0; k < A.num_cols(); k++) {
+      for(size_t j = 0; j < C.num_cols(); j++) {
+  C(i, j) += A(i, k) * B(k, j);
+      }
+    }
+  }
+}
 
 
 /* Definition of matmat_jki goes here */
+void   matmat_jki(const Matrix& A, const Matrix& B, Matrix& C) {
+  for(size_t j = 0; j < C.num_cols(); j++) {
+    for(size_t k = 0; k < A.num_cols(); k++) {
+      for(size_t i = 0; i < C.num_rows(); i++) {
+  C(i, j) += A(i, k) * B(k, j);
+      }
+    }
+  }
+}
