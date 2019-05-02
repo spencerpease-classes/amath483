@@ -93,8 +93,14 @@ double inf_norm(const Matrix& A);
 
 double Frobenius_norm(const Matrix& A) {
   double result = 0.0;
-  /* WRITE ME */
-  return result;
+
+  for(size_t i = 0; i < A.num_rows; ++i) {
+    for(size_t j = 0; j < A.num_cols; ++j) {
+      result += std::pow(std::abs(A(i, j)), 2);
+    }
+  }
+
+  return std::sqrt(result);
 }
 
 Matrix operator+(const Matrix& A, const Matrix& B) {
