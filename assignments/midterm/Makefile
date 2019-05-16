@@ -14,10 +14,10 @@ CXX             := c++
 # OPTS            := -g -O0
 
 # Uncomment this to test CSC
-# CSC		+= -DTEST_CSC
+CSC		+= -DTEST_CSC
 
 # Uncomment this to time CSC
-# CSC		+= -DTIME_CSC
+CSC		+= -DTIME_CSC
 
 # Uncomment this to test AOS
 # AOS		+= -DTEST_AOS
@@ -41,7 +41,7 @@ ifeq ($(OS),Linux)
 	LIBS	+= -lpthread
 endif
 
-CXXFLAGS	+= $(DEFS) $(OPTS) $(LANG) $(PICKY) $(INCLUDES) 
+CXXFLAGS	+= $(DEFS) $(OPTS) $(LANG) $(PICKY) $(INCLUDES)
 
 TARGETS		:= matvec_test.exe matmat_test.exe matvec_time.exe matmat_time.exe
 SOURCES		:= $(TARGETS:.exe=.cpp)
@@ -76,7 +76,7 @@ optreport	:
 clean		:
 		  /bin/rm -f $(TARGETS) $(OBJECTS) $(PCHS) Matrix.s a.out *~ Makefile.bak
 
-depend		: 
+depend		:
 	@ $(CXX) -MM $(LANG) $(INCLUDES) $(SOURCES) $(TESTS) > makedep
 	@ echo '/^# DO NOT DELETE THIS LINE/+2,$$d' >eddep
 	@ echo '$$r makedep' >>eddep
@@ -100,10 +100,10 @@ matmat_test.o: matmat_test.cpp catch.hpp Vector.hpp COOMatrix.hpp \
   AOSMatrix.hpp amath583sparse.hpp
 matvec_time.o: matvec_time.cpp Timer.hpp amath583.hpp Matrix.hpp \
   Vector.hpp amath583IO.hpp COOMatrix.hpp CSRMatrix.hpp CSCMatrix.hpp \
-  AOSMatrix.hpp amath583sparse.hpp matplotlibcpp.h 
+  AOSMatrix.hpp amath583sparse.hpp matplotlibcpp.h
 matmat_time.o: matmat_time.cpp Matrix.hpp Timer.hpp amath583.hpp \
   Vector.hpp amath583IO.hpp COOMatrix.hpp CSRMatrix.hpp CSCMatrix.hpp \
-  AOSMatrix.hpp amath583sparse.hpp matplotlibcpp.h 
+  AOSMatrix.hpp amath583sparse.hpp matplotlibcpp.h
 # DEPENDENCIES MUST END AT END OF FILE
 # IF YOU PUT STUFF HERE IT WILL GO AWAY
 # see make depend above

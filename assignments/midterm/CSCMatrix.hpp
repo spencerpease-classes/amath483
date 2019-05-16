@@ -33,7 +33,15 @@ public:
     col_indices_[0] = 0;
   }
 
-  void push_back(size_t i, size_t j, double value) { /* Write Me */   }
+  void push_back(size_t i, size_t j, double value) {
+    assert(is_open);
+    assert(i < num_rows_ && i >= 0);
+    assert(j < num_cols_ && j >= 0);
+
+    ++col_indices_[j];
+    row_indices_.push_back(i);
+    storage_.push_back(value);
+  }
 
   void clear() {
     row_indices_.clear();
@@ -45,9 +53,31 @@ public:
   size_t num_cols() const { return num_cols_; }
   size_t num_nonzeros() const { return storage_.size(); }
 
-  void stream_coordinates(std::ostream& output_file) const {  /* Write Me */  }
+  void stream_coordinates(std::ostream& output_file) const {
 
-  void matvec(const Vector& x, Vector& y) const { /* Write Me */  }
+    for (size_t j = 0; j < num_cols_; j++) {
+      for (size_t i = col_indices_[j]; i < col_indices_[j+1]; i++) {
+
+        output_file << row_indices_[i] << " ";
+        output_file << j               << " ";
+        output_file <<     storage_[i]       ;
+        output_file << std::endl;
+      }
+    }
+
+  }
+
+  void matvec(const Vector& x, Vector& y) const {
+
+    for (size_t j = 0; j < num_cols_; j++) {
+      for (size_t i = col_indices_[j]; i < col_indices_[j+1]; i++) {
+
+        y(row_indices_[i]) += storage_[i] * x(j);
+
+      }
+    }
+
+  }
 
   void matmat(const Matrix& B, Matrix& C) const {  /* Write Me for Extra Credit*/  }
 

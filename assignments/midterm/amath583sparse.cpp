@@ -172,7 +172,13 @@ void piscetize(CSCMatrix& A, size_t xpoints, size_t ypoints) {
 }
 
 
-Vector operator*(const CSCMatrix& A, const Vector& x) {  /* Write Me */  }
+Vector operator*(const CSCMatrix& A, const Vector& x) {
+
+  Vector y(A.num_rows());
+  A.matvec(x, y);
+  return y;
+
+}
 
 Matrix operator*(const CSCMatrix& A, const Matrix& B) { /* Write Me for Extra Credit */  }
 
