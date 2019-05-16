@@ -122,7 +122,13 @@ Vector operator*(const CSRMatrix& A, const Vector& x) {
 }
 
 
-Matrix operator*(const CSRMatrix& A, const Matrix& B) { /* Write Me */ }
+Matrix operator*(const CSRMatrix& A, const Matrix& B) {
+
+  Matrix C(A.num_rows(), B.num_cols());
+  A.matmat(B, C);
+  return C;
+
+}
 
 
 // ----------------------------------------------------------------
