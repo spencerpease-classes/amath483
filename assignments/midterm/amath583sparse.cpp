@@ -180,7 +180,13 @@ Vector operator*(const CSCMatrix& A, const Vector& x) {
 
 }
 
-Matrix operator*(const CSCMatrix& A, const Matrix& B) { /* Write Me for Extra Credit */  }
+Matrix operator*(const CSCMatrix& A, const Matrix& B) {
+
+  Matrix C(A.num_rows(), B.num_cols());
+  A.matmat(B, C);
+  return C;
+
+}
 
 
 // ----------------------------------------------------------------
