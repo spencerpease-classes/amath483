@@ -65,7 +65,13 @@ Vector operator*(const COOMatrix& A, const Vector& x) {
   return y;
 }
 
-Matrix operator*(const COOMatrix& A, const Matrix& B) { /* Write Me */ }
+Matrix operator*(const COOMatrix& A, const Matrix& B) {
+
+  Matrix C(A.num_rows(), B.num_cols());
+  A.matmat(B, C);
+  return C;
+
+}
 
 
 // ----------------------------------------------------------------
@@ -83,7 +89,7 @@ void   piscetize(CSRMatrix& A, size_t xpoints, size_t ypoints) {
   for (size_t j = 0; j < xpoints; j++) {
     for (size_t k = 0; k < ypoints; k++) {
       size_t jrow = j*ypoints + k;
-      
+
       if (j != 0) {
 	size_t jcol = (j-1)*ypoints + k;
 	A.push_back(jrow, jcol, -1.0);
@@ -92,9 +98,9 @@ void   piscetize(CSRMatrix& A, size_t xpoints, size_t ypoints) {
 	size_t jcol = j*ypoints + (k-1);
 	A.push_back(jrow, jcol, -1.0);
       }
-      
+
       A.push_back(jrow, jrow, 4.0);
-	
+
       if (k != ypoints-1) {
 	size_t jcol = j*ypoints + (k+1);
 	A.push_back(jrow, jcol, -1.0);
@@ -134,7 +140,7 @@ void piscetize(CSCMatrix& A, size_t xpoints, size_t ypoints) {
   for (size_t j = 0; j < xpoints; j++) {
     for (size_t k = 0; k < ypoints; k++) {
       size_t jrow = j*ypoints + k;
-      
+
       if (j != 0) {
 	size_t jcol = (j-1)*ypoints + k;
 	A.push_back(jcol, jrow, -1.0);
@@ -143,9 +149,9 @@ void piscetize(CSCMatrix& A, size_t xpoints, size_t ypoints) {
 	size_t jcol = j*ypoints + (k-1);
 	A.push_back(jcol, jrow, -1.0);
       }
-      
+
       A.push_back(jrow, jrow, 4.0);
-	
+
       if (k != ypoints-1) {
 	size_t jcol = j*ypoints + (k+1);
 	A.push_back(jcol, jrow, -1.0);
@@ -206,4 +212,3 @@ void piscetize(AOSMatrix& A, size_t xpoints, size_t ypoints) {
 Vector operator*(const AOSMatrix& A, const Vector& x) {  /* Write Me */ }
 
 Matrix operator*(const AOSMatrix& A, const Matrix& B) { /* Write Me for Extra Credit */ }
-
