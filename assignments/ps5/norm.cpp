@@ -102,8 +102,13 @@ int main(int argc, char *argv[]) {
 
   // assert(norm3 == norm4);
   if (norm4 != norm3) {
-    std::cout << "Absolute difference: " << std::abs(norm4-norm3) << std::endl;
-    std::cout << "Relative difference: " << std::abs(norm4-norm3)/norm3 << std::endl;
+    std::cout << "Absolute difference (norm3): " << std::abs(norm4-norm3) << std::endl;
+    std::cout << "Relative difference (norm3): " << std::abs(norm4-norm3)/norm3 << std::endl;
+  }
+
+  if (norm4 != norm0) {
+    std::cout << "Absolute difference (norm0): " << std::abs(norm4-norm0) << std::endl;
+    std::cout << "Relative difference (norm0): " << std::abs(norm4-norm0)/norm0 << std::endl;
   }
 
   return 0;
