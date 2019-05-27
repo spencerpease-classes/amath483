@@ -15,7 +15,7 @@
 #include <cmath>
 #include <functional>
 #include <random>
-#include <future>
+#include <thread>
 
 // ----------------------------------------------------------------
 //
@@ -60,28 +60,30 @@ double p_norm(const Vector& x);
 double partitioned_two_norm(const Vector& x, size_t partitions) {
 
   size_t partition_size = x.num_rows() / partitions;
-  std::vector<std::future<double>> partial_sums;
+  std::vector<std::thread> threads;
+  Vector partial_sumSquares(partitions);
+  zeroize(partial_sumSquares);
 
   for (size_t k = 0; k < partitions; k++) {
 
-    partial_sums.push_back(std::async(
-      std::launch::async,
-      [partition_size, k, &x]() -> double {
+    threads.push_back(std::thread(
+      [partition_size, k, &x, &partial_sumSquares]() -> void {
 
-        double partial_sumSquares = 0.0;
         for (size_t i = k * partition_size; i < (k+1) * partition_size; i++) {
-          partial_sumSquares += x(i) * x(i);
+          partial_sumSquares(k) += x(i) * x(i);
         }
 
-        return partial_sumSquares;
       }
     ));
   }
 
-  double sumSquares = 0.0;
-
   for (size_t k = 0; k < partitions; k++) {
-    sumSquares += partial_sums[k].get();
+    threads[k].join();
+  }
+
+  double sumSquares = 0.0;
+  for (size_t i = 0; i < partial_sumSquares.num_rows(); i++) {
+    sumSquares += partial_sumSquares(i);
   }
 
   double rootSumSquares = std::sqrt(sumSquares);
