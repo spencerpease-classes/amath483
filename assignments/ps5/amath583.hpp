@@ -27,6 +27,8 @@ double two_norm(const Vector& x);
 double inf_norm(const Vector& x);
 double p_norm(const Vector& x);
 
+double partitioned_two_norm(const Vector& x, size_t partitions);
+
 Vector abs(const Vector& x);
 
 Vector operator*(double alpha, const Vector& x);

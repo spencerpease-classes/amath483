@@ -15,6 +15,7 @@
 #include <cmath>
 #include <functional>
 #include <random>
+#include <future>
 
 // ----------------------------------------------------------------
 //
@@ -55,6 +56,37 @@ double two_norm(const Vector& x) {
 
 double inf_norm(const Vector& x);
 double p_norm(const Vector& x);
+
+double partitioned_two_norm(const Vector& x, size_t partitions) {
+
+  size_t partition_size = x.num_rows() / partitions;
+  std::vector<std::future<double>> partial_sums;
+
+  for (size_t k = 0; k < partitions; k++) {
+
+    partial_sums.push_back(std::async(
+      std::launch::async,
+      [partition_size, k, &x]() -> double {
+
+        double partial_sumSquares = 0.0;
+        for (size_t i = k * partition_size; i < (k+1) * partition_size; i++) {
+          partial_sumSquares += x(i) * x(i);
+        }
+
+        return partial_sumSquares;
+      }
+    ));
+  }
+
+  double sumSquares = 0.0;
+
+  for (size_t k = 0; k < partitions; k++) {
+    sumSquares += partial_sums[k].get();
+  }
+
+  double rootSumSquares = std::sqrt(sumSquares);
+  return rootSumSquares;
+}
 
 Vector abs(const Vector& x) {
   Vector y(x.num_rows());
