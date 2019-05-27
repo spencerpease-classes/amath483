@@ -53,6 +53,7 @@ int main() {
 
   std::cout << "Balance after Clyde's deposit is " << clyde.get() << std::endl;
   std::cout << "Balance after Bonnie's withdrawal is " << bonnie.get() << std::endl;
+  // std::cout << "Double checking Clyde's deposit " << clyde.get() << std::endl;
 
   std::cout << "Final bank balance is " << bank_balance << std::endl;
 
