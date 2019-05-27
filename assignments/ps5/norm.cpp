@@ -14,6 +14,31 @@
 #include <cmath>
 #include <string>
 #include <iostream>
+#include <algorithm>
+#include <iterator>
+
+/*
+// Test Sorting
+void print_range(Vector& x) {
+
+  std::cout << "First 5 elements: ";
+
+  for (size_t i = 0; i < 5; i++) {
+    std::cout << x(i) << " ";
+  }
+
+  std::cout << std::endl;
+
+  std::cout << "Last 5 elements: ";
+
+  for (size_t i = x.num_rows() - 5 - 1; i < x.num_rows(); i++){
+    std::cout << x(i) << " ";
+  }
+
+  std::cout << std::endl;
+
+}
+*/
 
 
 int main(int argc, char *argv[]) {
@@ -26,6 +51,8 @@ int main(int argc, char *argv[]) {
 
   Vector v(N);
   randomize(v);
+
+  //print_range(v);
 
   double norm0 = two_norm(v);
   std::cout << "Calling two_norm first time: " << norm0 << std::endl;
@@ -40,10 +67,12 @@ int main(int argc, char *argv[]) {
 
 
   // Write me: sort v in ascending order */
+  std::sort(& v(0), & v(v.num_rows()));
+  // print_range(v);
   double norm2 = two_norm(v);
   std::cout << "Calling two_norm with ascending values: " << norm2 << std::endl;
 
-  //  assert(norm0 == norm2);  // Is this safe / correct to do?
+  // assert(norm0 == norm2);  // Is this safe / correct to do?
   if (norm2 != norm0) {
     std::cout << "Absolute difference: " << std::abs(norm2-norm0) << std::endl;
     std::cout << "Relative difference: " << std::abs(norm2-norm0)/norm0 << std::endl;
@@ -51,10 +80,17 @@ int main(int argc, char *argv[]) {
 
 
   // Write me: sort v in descending order */
+  // std::sort(& v(0), & v(v.num_rows()), [&v](auto& a, auto& b) -> bool { return v(a) > v(b); });
+  std::reverse(& v(0), & v(v.num_rows()));
+  // print_range(v);
   double norm3 = two_norm(v);
   std::cout << "Calling two_norm with descending values: " << norm3 << std::endl;
 
-  assert(norm0 == norm3);  // Is this safe / correct to do?
+  // assert(norm0 == norm3);  // Is this safe / correct to do?
+  if (norm2 != norm0) {
+    std::cout << "Absolute difference: " << std::abs(norm3-norm0) << std::endl;
+    std::cout << "Relative difference: " << std::abs(norm3-norm0)/norm0 << std::endl;
+  }
 
   return 0;
 }
