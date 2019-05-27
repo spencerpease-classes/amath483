@@ -44,9 +44,13 @@ void print_range(Vector& x) {
 int main(int argc, char *argv[]) {
 
   size_t N = 1024 * 1024;
+  size_t numthreads = 1;
 
-  if (argc == 2) {
+  if (argc >= 2) {
     N = std::stol(argv[1]);
+  }
+  if (argc >= 3) {
+    numthreads = std::stol(argv[2]);
   }
 
   Vector v(N);
@@ -90,6 +94,16 @@ int main(int argc, char *argv[]) {
   if (norm2 != norm0) {
     std::cout << "Absolute difference: " << std::abs(norm3-norm0) << std::endl;
     std::cout << "Relative difference: " << std::abs(norm3-norm0)/norm0 << std::endl;
+  }
+
+
+  double norm4 = partitioned_two_norm(v, numthreads);
+  std::cout << "Calling partitioned_two_norm with " <<  numthreads << " threads: " << norm4 << std::endl;
+
+  // assert(norm3 == norm4);
+  if (norm4 != norm3) {
+    std::cout << "Absolute difference: " << std::abs(norm4-norm3) << std::endl;
+    std::cout << "Relative difference: " << std::abs(norm4-norm3)/norm3 << std::endl;
   }
 
   return 0;
