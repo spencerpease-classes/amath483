@@ -11,17 +11,17 @@
 CXX             := c++
 
 # Maximum optimization effort: -O3 -march=native -DNDEBUG
-OPTS            := -O3 -march=native -DNDEBUG 
+OPTS            := -O3 -march=native #-DNDEBUG
 LANG            := -std=c++17
 PICKY           := -Wall
 DIAG		:= # -Rpass=.*
-DEFS		:= 
-INCLUDES	:= -I../include 
+DEFS		:=
+INCLUDES	:= -I../include
 LIBS		:= -lpython2.7 -lpthread
 
 XINCLUDES	:= -I/usr/include/python2.7
-XLIBS		:= 
-VPATH		:= 
+XLIBS		:=
+VPATH		:=
 
 INCLUDES	+= $(XINCLUDES)
 LIBS		+= $(XLIBS)
@@ -61,7 +61,7 @@ matvec.exe      : matvec.o amath583.o
 bonnie_and_clyde.exe : bonnie_and_clyde.o
 bonnie_and_clyde_function_object.exe : bonnie_and_clyde_function_object.o
 
-pagerank.exe    : pagerank.o amath583.o amath583IO.o  amath583sparse.o 
+pagerank.exe    : pagerank.o amath583.o amath583IO.o  amath583sparse.o
 
 
 defreport	:
@@ -73,7 +73,7 @@ optreport	:
 clean		:
 		  /bin/rm -f $(TARGETS) $(OBJECTS) $(PCHS) Matrix.s a.out *~ Makefile.bak
 
-depend		: 
+depend		:
 	@ $(CXX) -MM $(LANG) $(INCLUDES) $(SOURCES) $(TESTS) > makedep
 	@ echo '/^# DO NOT DELETE THIS LINE/+2,$$d' >eddep
 	@ echo '$$r makedep' >>eddep
