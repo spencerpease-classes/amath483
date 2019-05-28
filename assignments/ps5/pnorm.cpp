@@ -44,6 +44,8 @@ int main(int argc, char *argv[]) {
   Vector v(N);
   randomize(v);
 
+  std::cout << "Regular ||v|| = " << two_norm(v) << std::endl;
+
   plt::figure_size(1280, 960);    // Initialize a 1280 X 960 figure
   std::vector<double> sizes(0);
   std::vector<double> times(0);
@@ -65,7 +67,7 @@ int main(int argc, char *argv[]) {
     std::cout << "||v|| = " << part_norm <<std::endl;
   }
 
-  plt::xlim(1, maxthreads);
+  plt::xlim((size_t) 1, maxthreads);
   plt::xlabel("Number of threads");
   plt::ylabel("Time(ms)");
 
