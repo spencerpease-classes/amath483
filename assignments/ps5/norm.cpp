@@ -77,10 +77,10 @@ int main(int argc, char *argv[]) {
   std::cout << "Calling two_norm with ascending values: " << norm2 << std::endl;
 
   // assert(norm0 == norm2);  // Is this safe / correct to do?
-  if (norm2 != norm0) {
+  //if (norm2 != norm0) {
     std::cout << "Absolute difference: " << std::abs(norm2-norm0) << std::endl;
     std::cout << "Relative difference: " << std::abs(norm2-norm0)/norm0 << std::endl;
-  }
+  //}
 
 
   // Write me: sort v in descending order */
@@ -91,25 +91,25 @@ int main(int argc, char *argv[]) {
   std::cout << "Calling two_norm with descending values: " << norm3 << std::endl;
 
   // assert(norm0 == norm3);  // Is this safe / correct to do?
-  if (norm2 != norm0) {
+  //if (norm2 != norm0) {
     std::cout << "Absolute difference: " << std::abs(norm3-norm0) << std::endl;
     std::cout << "Relative difference: " << std::abs(norm3-norm0)/norm0 << std::endl;
-  }
+  //}
 
 
   double norm4 = partitioned_two_norm(v, numthreads);
   std::cout << "Calling partitioned_two_norm with " <<  numthreads << " threads: " << norm4 << std::endl;
 
   // assert(norm3 == norm4);
-  if (norm4 != norm3) {
+  //if (norm4 != norm3) {
     std::cout << "Absolute difference (norm3): " << std::abs(norm4-norm3) << std::endl;
     std::cout << "Relative difference (norm3): " << std::abs(norm4-norm3)/norm3 << std::endl;
-  }
+  //}
 
-  if (norm4 != norm0) {
+  //if (norm4 != norm0) {
     std::cout << "Absolute difference (norm0): " << std::abs(norm4-norm0) << std::endl;
     std::cout << "Relative difference (norm0): " << std::abs(norm4-norm0)/norm0 << std::endl;
-  }
+  //}
 
   return 0;
 }
