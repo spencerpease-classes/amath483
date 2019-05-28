@@ -28,6 +28,7 @@ double inf_norm(const Vector& x);
 double p_norm(const Vector& x);
 
 double partitioned_two_norm(const Vector& x, size_t partitions);
+double recursive_two_norm(const Vector& x, size_t levels);
 
 Vector abs(const Vector& x);
 

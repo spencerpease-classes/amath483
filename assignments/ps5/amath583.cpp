@@ -16,6 +16,8 @@
 #include <functional>
 #include <random>
 #include <thread>
+#include <future>
+#include <functional>
 
 // ----------------------------------------------------------------
 //
@@ -89,6 +91,36 @@ double partitioned_two_norm(const Vector& x, size_t partitions) {
   double rootSumSquares = std::sqrt(sumSquares);
   return rootSumSquares;
 }
+
+
+double recursive_two_norm(const Vector& x, size_t levels) {
+
+  std::function<double (const size_t, const size_t, const size_t)> rec_two_norm =
+    [&](const size_t current_level, const size_t begin, const size_t end) -> double {
+
+      if (begin - end == 1 || current_level == 0) {
+
+        double partial_sumSquares = 0.0;
+        for (size_t i = begin; i < end; i++) {
+          partial_sumSquares += x(i) * x(i);
+        }
+        return partial_sumSquares;
+
+      } else {
+
+        std::future<double> low_part  = std::async(rec_two_norm, current_level-1, begin,               begin+(end-begin)/2);
+        std::future<double> high_part = std::async(rec_two_norm, current_level-1, begin+(end-begin)/2, end                );
+
+        return low_part.get() + high_part.get();
+      }
+
+  };
+
+  double sumSquares = rec_two_norm(levels, 0, x.num_rows());
+  double rootSumSquares = std::sqrt(sumSquares);
+  return rootSumSquares;
+}
+
 
 Vector abs(const Vector& x) {
   Vector y(x.num_rows());
