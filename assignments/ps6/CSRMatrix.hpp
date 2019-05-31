@@ -79,9 +79,10 @@ public:
 
   void omp_matvec(const Vector& x, Vector& y) const {
     /* Parallelize me */
+    #pragma omp parallel for shared(y)
     for (size_t i = 0; i < num_rows_; ++i) {
       for (size_t j = row_indices_[i]; j < row_indices_[i+1]; ++j)  {
-	y(i) += storage_[j] * x(col_indices_[j]);
+	      y(i) += storage_[j] * x(col_indices_[j]);
       }
     }
   }
@@ -89,6 +90,34 @@ public:
 
   void partition_by_nnz(size_t parts) {
     /* Write me */
+
+    // Can't figure this one out
+    partition_by_row(parts);
+
+    /*
+    // Throws an error when writing matplotlib graph???
+    num_partitions_ = parts;
+    size_t xsize = num_rows_ / parts;
+    size_t xrem = num_rows_ % parts;
+    partitions_.resize(parts+1);
+
+    size_t part_index = 0;
+    size_t nnz_running_total = 0;
+
+    for (size_t i = 0; i < row_indices_.size()-2; i++) {
+
+      size_t nnz_in_row = row_indices_[i+1] - row_indices_[i];
+      nnz_running_total += nnz_in_row;
+
+      if (nnz_running_total >= xsize) {
+        partitions_[part_index] = i;
+        part_index++;
+        nnz_running_total = 0;
+      }
+    }
+
+    partitions_[part_index] = row_indices_.size() - 1;
+    */
   }
 
   void partition_by_row(size_t parts) {
@@ -112,11 +141,11 @@ public:
       }
     }
   }
-  
+
   void par_matvec(const Vector& x, Vector& y) const {
 
     std::vector<std::future<void>> futures_;
-    for (size_t p = 0; p < partitions_.size()-1; ++p) {    
+    for (size_t p = 0; p < partitions_.size()-1; ++p) {
       futures_.emplace_back(std::async(std::launch::async, &CSRMatrix::matvec_part, this, std::cref(x), std::ref(y), p));
     }
     for (size_t p = 0; p < partitions_.size()-1; ++p) {

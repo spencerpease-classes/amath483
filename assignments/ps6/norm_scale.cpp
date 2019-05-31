@@ -41,9 +41,9 @@ void norm_bench(std::function<double (const Vector&)>&& f,
     if (std::abs(ref_norm - check_norm)/ref_norm > 1.e-12 * x.num_rows()) {
       std::cout << "Error too large: " << std::abs(ref_norm - check_norm)/ref_norm << std::endl;
     }
-    
+
     size_t trips = 4 + 1024 * 1024 * 1024 / (2.0 * x.num_rows());
-    
+
     Timer t;
     t.start();
     for (size_t trip = 0; trip <= trips; ++trip) {
@@ -73,7 +73,7 @@ double norm_seq(const Vector& x) {
   for (size_t i = 0; i < x.num_rows(); ++i) {
     sum += x(i) * x(i);
   }
-  return std::sqrt(sum);  
+  return std::sqrt(sum);
 }
 
 
@@ -89,6 +89,7 @@ double norm_parfor(const Vector& x) {
 double norm_block_reduction(const Vector& x) {
   double sum = 0;
   /* Fix Me */
+  #pragma omp parallel for reduction(+:sum)
   for (size_t i = 0; i < x.num_rows(); ++i) {
     sum += x(i) * x(i);
   }
@@ -98,7 +99,9 @@ double norm_block_reduction(const Vector& x) {
 double norm_block_critical(const Vector& x) {
   double sum = 0;
   /* Fix Me */
+  #pragma omp parallel for
   for (size_t i = 0; i < x.num_rows(); ++i) {
+    #pragma omp atomic
     sum += x(i) * x(i);
   }
   return std::sqrt(sum);
@@ -107,6 +110,7 @@ double norm_block_critical(const Vector& x) {
 double norm_cyclic_reduction(const Vector& x) {
   double sum = 0;
   /* Fix Me */
+  #pragma omp parallel for schedule(static, 1) reduction(+:sum)
   for (size_t i = 0; i < x.num_rows(); ++i) {
     sum += x(i) * x(i);
   }
@@ -115,8 +119,9 @@ double norm_cyclic_reduction(const Vector& x) {
 
 double norm_cyclic_critical(const Vector& x) {
   double sum = 0;
-  /* Fix Me */
+  #pragma omp parallel for schedule(static, 1)
   for (size_t i = 0; i < x.num_rows(); ++i) {
+    #pragma omp atomic
     sum += x(i) * x(i);
   }
   return std::sqrt(sum);
@@ -149,7 +154,7 @@ int main(int argc, char* argv[]) {
       } else if (std::string(argv[arg]) == "-t") {
         if (argc == ++arg) usage(argv[0]);
         maxthreads = std::stol(argv[arg]);
-      } 
+      }
     }
   } catch (int) {
     usage(argv[0]);
@@ -189,7 +194,7 @@ int main(int argc, char* argv[]) {
 
   std::cout << "================================================================" << std::endl;
   std::cout << "  Cyclic reduction " << std::endl;
-  
+
   norm_bench (norm_cyclic_reduction, sizes, flops, size, maxthreads, scaling);
   plt::named_loglog("Cyclic reduction", sizes, flops);
 
@@ -210,5 +215,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
-

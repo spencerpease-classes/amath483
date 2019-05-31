@@ -67,6 +67,7 @@ public:
 
   void   omp_matvec(const Vector& x, Vector& y) const {
     /* Parallelize me */
+    #pragma omp parallel for shared(y)
     for (size_t k = 0; k < storage_.size(); ++k) {
       y(row_indices_[k]) += storage_[k] * x(col_indices_[k]);
     }

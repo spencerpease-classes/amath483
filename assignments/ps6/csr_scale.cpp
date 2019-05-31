@@ -52,9 +52,9 @@ void sparse_matvec_bench(std::function<void (const Matrix_t&, const Vector_t&,Ve
   for (size_t threads = 1; threads <= maxthreads; threads *= 2) {
 
     partition(A, threads);
-    
+
     size_t trips = 4 + 64 * 1024 * 1024 / (2.0 * A.num_nonzeros());
-    
+
     Timer t;
     t.start();
     for (size_t trip = 0; trip <= trips; ++trip) {
@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
       } else if (std::string(argv[arg]) == "-t") {
         if (argc == ++arg) usage(argv[0]);
         maxthreads = std::stol(argv[arg]);
-      } 
+      }
     }
   } catch (int) {
     usage(argv[0]);
@@ -127,7 +127,6 @@ int main(int argc, char* argv[]) {
 
   plt::named_loglog("CSR by nnz", sizes, flops);
 
-
   plt::xlim(1, (int) maxthreads);
   plt::xlabel("Threads");
   plt::ylabel("GFlops");
@@ -137,5 +136,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
-

@@ -21,7 +21,11 @@ Vector pagerank(const CSRMatrix& P, double alpha, double tol = 1.e-6, size_t max
   x = (1.0 / one_norm(x)) * x;
 
   for (size_t i = 0; i < max_iters; ++i) {
-    Vector y = alpha * (P * x) + (1.0 - alpha) / x.num_rows();
+
+    Vector Px(x.num_rows());
+    P.omp_matvec(x, Px);
+
+    Vector y = alpha * Px + (1.0 - alpha) / x.num_rows();
 
     if (two_norm(x - y) < tol) {
       std::cout << "Converged in " << i << " iterations" << std::endl;
@@ -217,7 +221,7 @@ int main(int argc, char* argv[]) {
   if (verbose == 0) {
     verbose = x.num_rows();
   }
-    
+
   if (label_file != "") {
     std::vector<std::string> labels = read_labels(label_file);
     for (int i = 0; i < verbose; ++i) {

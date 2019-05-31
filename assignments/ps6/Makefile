@@ -17,24 +17,24 @@ CSR		+= -DTIME_CSR
 #CSC		+= -DTIME_CSC
 
 # Uncomment this to time COO
-#COO		+= -DTIME_COO
+COO		+= -DTIME_COO
 
 # Uncomment this to time AOS
 #AOS		+= -DTIME_AOS
 
 
 # Maximum optimization effort: -O3 -march=native -DNDEBUG
-OPTS            := -Ofast -march=native -DNDEBUG 
+OPTS            := -Ofast -march=native -DNDEBUG
 LANG            := -std=c++17
 PICKY           := -Wall
 DIAG		:= # -Rpass=.*
 DEFS		:= -Xpreprocessor -fopenmp $(COO) $(CSR) $(CSC) $(AOS)
-INCLUDES	:= -I../include 
+INCLUDES	:= -I../include
 LIBS		:= -L/usr/lib/python2.7/config-x86_64-linux-gnu -lpython2.7 -lpthread -lomp
 
 XINCLUDES	:= -I/usr/include/python2.7
-XLIBS		:= 
-VPATH		:= 
+XLIBS		:=
+VPATH		:=
 
 INCLUDES	+= $(XINCLUDES)
 LIBS		+= $(XLIBS)
@@ -68,10 +68,10 @@ all		: $(TARGETS)
 		  $(CXX) -S $(CXXFLAGS) $<
 
 
-pagerank.exe    : pagerank.o amath583.o amath583IO.o  amath583sparse.o 
-matvec_scale.exe : matvec_scale.o amath583.o amath583IO.o  amath583sparse.o 
-csr_scale.exe   : csr_scale.o amath583.o amath583IO.o  amath583sparse.o 
-norm_scale.exe  : norm_scale.o amath583.o 
+pagerank.exe    : pagerank.o amath583.o amath583IO.o  amath583sparse.o
+matvec_scale.exe : matvec_scale.o amath583.o amath583IO.o  amath583sparse.o
+csr_scale.exe   : csr_scale.o amath583.o amath583IO.o  amath583sparse.o
+norm_scale.exe  : norm_scale.o amath583.o
 csr_omp.exe	: csr_omp.o amath583.o amath583IO.o
 mmio_to_bin.exe : mmio_to_bin.o
 deg_dist.exe    : deg_dist.o
@@ -85,7 +85,7 @@ optreport	:
 clean		:
 		  /bin/rm -f $(TARGETS) $(OBJECTS) $(PCHS) Matrix.s a.out *~ Makefile.bak
 
-depend		: 
+depend		:
 	@ $(CXX) -MM $(LANG) $(INCLUDES) $(SOURCES) $(TESTS) > makedep
 	@ echo '/^# DO NOT DELETE THIS LINE/+2,$$d' >eddep
 	@ echo '$$r makedep' >>eddep
